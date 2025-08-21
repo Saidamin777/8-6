@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QR to'lov</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1c1c88;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: cent   er;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #reader {
+            width: 300px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            margin-top: 50px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            background-color: #4e4eff;
+            color: white;
+            cursor: pointer;
+        }
+
+        .result {
+            margin-top: 20px;
+            background: green;
+            padding: 15px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>QR to'lov</h2>
+    <p>Kamerani QR-kodga qaratinq</p>
+    <div id="reader"></div>
+    <div id="result"></div>
+    <button class="btn" onclick="stopScanner()">Bekor qilish</button>
+
+    <!-- QR scanner kutubxonasi -->
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <script>
+        const scanner = new Html5Qrcode("reader");
+
+        function startScanner() {
+            scanner.start(
+                { facingMode: "environment" },
+                { fps: 10, qrbox: 250 },
+                qrCodeMessage => {
+                    let now = new Date();
+                    let time = now.toLocaleTimeString();
+                    document.getElementById("result").innerHTML =
+                        `<div class="result">To'lov qabul qilindi: 1700 so'm<br>Vaqt: ${time}</div>`;
+                    scanner.stop(); // Skanerlashni to‘xtatadi
+                },
+                errorMessage => {
+                    // xatoliklar ko‘rsatilmaydi
+                }
+            ).catch(err => {
+                alert("Kamerani ochib bo‘lmadi: " + err);
+            });
+        }
+
+        function stopScanner() {
+            scanner.stop().then(() => {
+                document.getElementById("result").innerHTML = "Skaner bekor qilindi.";
+                document.getElementById("reader").innerHTML = "";
+                window.location.href = './index.html'
+            });
+        }
+
+        // Dastlab kamera ishga tushadi
+        startScanner();
+    </script>
+</body>
+
+</html>

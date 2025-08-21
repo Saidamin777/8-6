@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Karta qo‘shish</title>
+    <style>
+        body {
+            background: #1f2e78;
+            color: white;
+            font-family: sans-serif;
+            padding: 20px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #27ae60;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Karta qo‘shish</h2>
+    <input type="text" id="phone" placeholder="Telefon raqamigizni kiriting">
+    <input type="text" id="som" placeholder="Mablag'">
+
+    <button onclick="saveCard()">To'lash</button>
+    <script>
+        function saveCard() {
+            const number = document.getElementById('phone').value.trim();
+            const som = document.getElementById('som').value.trim();
+
+
+            // Karta raqami: faqat raqam, uzunligi 16
+            const cardRegex = /^\+998\d{9}$/;
+
+            if (cardRegex.test(number) && som) {
+                localStorage.setItem('narh', som);
+                window.location.href = 'index.html';
+            } else {
+                alert("Iltimos Telefon raqamingiz ni va qancha mablag' kartangizga tashlashingizni kiritng");
+            }
+        }
+    </script>
+</body>
+
+</html>

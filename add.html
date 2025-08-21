@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Karta qo‘shish</title>
+  <style>
+    body {
+      background: #1f2e78;
+      color: white;
+      font-family: sans-serif;
+      padding: 20px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #2ecc71;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #27ae60;
+    }
+  </style>
+</head>
+<body>
+  <h2>Karta qo‘shish</h2>
+  <input type="text" id="cardNumber" placeholder="Karta raqamini kiriting">
+  <button onclick="saveCard()">Saqlash</button>
+<script>
+  function saveCard() {
+    const number = document.getElementById('cardNumber').value.trim();
+
+    // Karta raqami: faqat raqam, uzunligi 16
+    const cardRegex = /^\d{16}$/;
+
+    if (cardRegex.test(number)) {
+      localStorage.setItem('userCard', number);
+      window.location.href = 'index.html';
+    } else {
+      alert("Karta raqami faqat raqamlardan iborat bo‘lishi va aynan 16 ta bo‘lishi  kerak va iltimos joytashlamasdan yozin");
+    }
+  }
+</script>
+
+</body>
+</html>
